@@ -3,7 +3,8 @@ import heapq
 
 class Post:
     """
-    this class represents the
+    this class represents the social media post, storing both the message content and the view count
+    also customizes comparison operations to facilitate max-heap behavior based on views
     """
     def __init__ (self, message, views):
         self.message = message #initializing the message of the post
@@ -20,7 +21,8 @@ class Post:
         return f"Post(message='{self.message}', views={self.views})"
 class MaxHeap:
     """
-    this class represents
+    this class implements a max-heap to manage Post objects, allowing for retrieval and removal of
+    the post with the highest views in a priority queue manner
     """
     def __init__(self):
         self.heap = [] #creating an empty list to store the heap elements
