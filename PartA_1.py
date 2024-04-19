@@ -87,6 +87,7 @@ print("Found post:", bst.find('2024-04-03T12:00:00'))
 
 print("")
 # Test case 1 where the Empty Tree Test
+print("Test case 1: Empty Tree Test")
 empty_bst = BST()
 assert empty_bst.find('2024-01-01T00:00:00') is None, "Test Failed: Should return None for empty tree"
 print("Passed: No post found in an empty tree.")
