@@ -52,3 +52,19 @@ max.push(Post("New country is visited!", 3209))
 print(max.pop())
 #Peek at the next post with the most views without removing it and print it
 print(max.peek())
+
+
+print("")
+# Test Case 1 Immediate Access to Maximum Value
+most_viewed_post = max.pop()
+print("Test Case 1: Immediate Access to Maximum Value")
+print("Expected Output: Post(message='New country is visited!', views=3209)")
+print("Actual Output:", most_viewed_post)
+
+
+print("")
+# Test Case 2 Maintaining Heap After Operations
+next_most_viewed_post = max.peek()
+print("Test Case 2: Maintaining Heap After Operations")
+print("Expected Output: Post(message='Say Hi to my new puppy:)', views=2303)")
+print("Actual Output:", next_most_viewed_post)
