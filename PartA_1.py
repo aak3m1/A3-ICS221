@@ -67,21 +67,36 @@ class BST:
         self.traversal_recursive(self.root, result) #start the recursive traversal from the root
         return result
 
-#this example to test the BST
+#this example is to test the BST
 bst = BST()
 bst.insert('2024-04-03T12:00:00', 'Cats and Dogs')
 bst.insert('2024-04-20T12:30:00', 'New country is visited !')
 bst.insert('2023-12-18T13:00:00', 'Say Hi to my new puppy:)')
 
-#find a post
-print("Found post:", bst.find('2024-04-03T12:00:00'))
-print("")
-print("All posts in chronological order:") #the content of the post
-
 #displaying the posts in chronological order with clear statement of each post's position
+print("All posts in chronological order:") #the content of the post
 posts = bst.order_traversal()
 for index, post in enumerate(posts, start=1):
     print(f"Post {index}: {post}")
+
+
+print("")
+#finding a post
+print("Found post:", bst.find('2024-04-03T12:00:00'))
+
+
+print("")
+# Test case 1 where the Empty Tree Test
+empty_bst = BST()
+assert empty_bst.find('2024-01-01T00:00:00') is None, "Test Failed: Should return None for empty tree"
+print("Passed: No post found in an empty tree.")
+
+print("")
+# Single Node Test
+print("Test case 2: Single Node Test")
+assert bst.find('2024-04-03T12:00:00') == 'Cats and Dogs', "Test Failed: Should return 'Cats and Dogs'"
+print("Passed: Correct retrieval from a single-node setup (already inserted).")
+
 
 
 
