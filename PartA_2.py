@@ -1,3 +1,4 @@
+from datetime import datetime as dt
 class TreeNode:
     """
     this class represents the augmented the BST which stores a post
@@ -21,25 +22,28 @@ class AugmentBST:
     def insert(self,datetime,post):
         #this method is to inset a new post into the BST if the tree is empty
         #this node becomes the root
-        self.root = self.insert_recursive(self.root, datetime, post) #starting the recursive insertion process from the root
+        if self.root is None:
+            self.root = TreeNode(datetime, post)
+        else:
+            self.insert_recursive(self.root, datetime, post)
 
     def insert_recursive(self, node, datetime, post):
         #this method recursively find the correct spot to insert the new node and
         #update subtree sizes
-        if not node:
-            return TreeNode(datetime, post) #creeates a new node if there is no node
         if datetime < node.datetime:
-            #insertingthe left subtree if the datetime is less than the current node's datetime
-            node.left = self.insert_recursive(node.left, datetime, post)
+            if node.left is None:
+                node.left = TreeNode(datetime, post)
+            else:
+                self.insert_recursive(node.left, datetime, post)
         elif datetime > node.datetime:
-            #inserting in the right subtree if the datetime is greater than the current node's datetime
-            node.right = self.insert_recursive(node.right, datetime, post)
+            if node.right is None:
+                node.right = TreeNode(datetime, post)
+            else:
+                self.insert_recursive(node.right, datetime, post)
         else:
-            #raising an error if a post with the same datetime exists (no duplicates allowed)
             raise ValueError("A post with the same datetime already exists.")
-        #updating the subtree size after insertion.
         node.subtree_size = 1 + self.getsize(node.left) + self.getsize(node.right)
-        return node #return the node after updating it
+
     def find_range(self, startDatetime, endDatetime):
         #all posts within the given datetime range as a list of tuples
         result = []
@@ -52,23 +56,27 @@ class AugmentBST:
         #datetime range
         if not node:
             return #if the node is None, just return (base case)
-        if startDatetime <= node.datetime <= endDatetime:
+        #converting the datetime strings to actual datetime objects for accurate comparison
+        node_dt = dt.strptime(node.datetime, "%Y-%m-%dT%H:%M:%S")
+        start_dt = dt.strptime(startDatetime, "%Y-%m-%dT%H:%M:%S")
+        end_dt = dt.strptime(endDatetime, "%Y-%m-%dT%H:%M:%S")
+        if start_dt <= node_dt <= end_dt:
             #if the node's datetime is within the range
             # add it to the result list
-            result.append((node.datetime, node.post))  # Append the tuple of datetime and post
-        if startDatetime < node.datetime:
+            result.append((node.datetime, node.post))# Append the tuple of datetime and post
+        if start_dt < node_dt:
             #exploring the left subtree if the range starts before the node's datetime
             self.rangeRecursive(node.left, startDatetime, endDatetime, result)
-        if node.datetime < endDatetime:
+        if node_dt < end_dt:
             #exploring right subtree if the range ends after the node's datetime
             self.rangeRecursive(node.right, startDatetime, endDatetime, result)
-
 
     def getsize(self, node): #returining the size of the subtree
         return node.subtree_size if node else 0 #returning 0 if the node is None
 
 
-#example usage of the augmented BST
+
+#example
 augBST = AugmentBST()
 
 #inserting posts into the BST
@@ -81,3 +89,19 @@ posts_in_range = augBST.find_range('2023-12-18T13:00:00', '2024-04-20T12:35:00')
 
 for i, (datetime, post) in enumerate(posts_in_range, 1):
     print(f"Post {i}: [{datetime}] {post}")
+
+print("")
+# Test Case 1 No Posts in Range
+emptyRange = augBST.find_range('2025-01-01T00:00:00', '2025-01-02T00:00:00')
+print("Test Case 1: No Posts in Range - Expected: [], Actual:", emptyRange)
+
+print("")
+# Test Case 2 Multiple Posts in Range
+posts_in_range = augBST.find_range('2023-12-17T00:00:00', '2024-04-04T23:59:59')
+expected_posts = [
+    ('2023-12-18T13:00:00', 'Say Hi to my new puppy:'),
+    ('2024-04-03T12:00:00', 'Cats and Dogs'),
+    ('2024-04-20T12:30:00', 'New country is visited!')
+]
+sorted_posts = sorted(posts_in_range, key=lambda x: x[0])
+print("Test Case 2: Multiple Posts in Range - Expected:", expected_posts, "Actual:", sorted_posts)

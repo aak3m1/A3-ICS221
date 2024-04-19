@@ -93,11 +93,8 @@ assert empty_bst.find('2024-01-01T00:00:00') is None, "Test Failed: Should retur
 print("Passed: No post found in an empty tree.")
 
 print("")
-# Single Node Test
+# Test case 2 Single Node Test
 print("Test case 2: Single Node Test")
 assert bst.find('2024-04-03T12:00:00') == 'Cats and Dogs', "Test Failed: Should return 'Cats and Dogs'"
 print("Passed: Correct retrieval from a single-node setup (already inserted).")
-
-
-
 
