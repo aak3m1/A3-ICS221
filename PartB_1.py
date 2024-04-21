@@ -44,9 +44,9 @@ class TrafficGraph:
 #example of using the graph
 traffic_graph = TrafficGraph(100)  # max 100 vertices
 #adding roads as edges to the graph
-traffic_graph.addRoad(Road(1, "Main Street", 5, 0, 1))
-traffic_graph.addRoad(Road(2, "Second Street", 3, 1, 2))
-traffic_graph.addRoad(Road(3, "Third Avenue", 7, 0, 2))
+traffic_graph.addRoad(Road(1, "Al Maktoum Airport Street", 5, 0, 1))
+traffic_graph.addRoad(Road(2, "Al Yalayis Street", 3, 1, 2))
+traffic_graph.addRoad(Road(3, "Hessa Street", 7, 0, 2))
 
 #computing the shortest paths from vertex 0
 shortest_paths = traffic_graph.dijkstra(0)
